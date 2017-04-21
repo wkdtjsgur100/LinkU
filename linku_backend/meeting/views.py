@@ -25,6 +25,9 @@ class StatisticsViewSet(viewsets.ModelViewSet):
     queryset = Statistics.objects.all()
     serializer_class = StatisticsSerializer
 
+from rest_framework import status
+from rest_framework.response import Response
+
 
 class MeetingViewSet(viewsets.ModelViewSet):
     queryset = Meeting.objects.all()
