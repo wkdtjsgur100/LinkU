@@ -1,13 +1,15 @@
 import * as types from '../actiontypes/Common';
 
-export function alertLogin(){
+export function alertConfirm(message, color) {
     return {
-        type: types.ALERT_LOGIN
-    }
+        type: types.ALERT_CONFIRM,
+        message,
+        color
+    };
 }
 
-export function hideLoginAlert(){
+export function hideConfirmAlert() {
     return {
-        type: types.HIDE_LOGIN_ALERT
-    }
+        type: types.HIDE_CONFIRM_ALERT
+    };
 }

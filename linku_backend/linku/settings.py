@@ -103,16 +103,17 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Cors middleware settings
 CORS_ORIGIN_WHITELIST = (
-    'localhost:3000'
+    'localhost:3000',
 )
 
 # REST_FRAMEWORK
 REST_FRAMEWORK = {
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',  # Use application/json instead of multipart/form-data requests in tests.
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-    )
+    ),
 }
 
 # Internationalization
@@ -132,6 +133,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

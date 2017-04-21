@@ -1,7 +1,7 @@
 import * as types from '../actiontypes/Login';
 
 const loginInitialState = {
-    id : 'undefined',
+    username : 'undefined',
     password : 'undefined',
     fetching : false,
     payload : null,
@@ -10,10 +10,20 @@ const loginInitialState = {
 
 export default function login(state = loginInitialState, action){
     switch(action.type){
+        case types.LOGIN:
+            return {
+                ...state,
+                loggedIn : true
+            };
+        case types.LOGOUT:
+            return {
+                ...state,
+                loggedIn : false
+            };
         case types.REQUEST_LOGIN:
             return {
                 ...state,
-                id : action.id,
+                username : action.username,
                 password : action.password,
                 fetching : true
             };

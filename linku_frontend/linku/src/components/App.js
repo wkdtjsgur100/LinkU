@@ -6,18 +6,30 @@ import Maker from './specific_page/Maker';
 import Place from './specific_page/Place';
 import Appliers from './specific_page/Appliers';
 
-import Login from './login/Login';
-import Jumbotron from './mainpage/Jumbotron';
+import ConfirmModal from './utils/ConfirmModal';
+import Signup from './signup/Signup';
 import MeetingCardBox from './mainpage/MeetingCardBox';
+import IntroVideo from './mainpage/IntroVideo';
+import IntroOfLinkU from './mainpage/IntroOfLinkU';
+import LinkUHeader from './mainpage/LinkUHeader';
+import NextMeetingPlan from './mainpage/NextMeetingPlan'
+import Review from './mainpage/Review';
+import LinkUGuide from './guide_page/LinkUGuide';
+import Statistics from './mainpage/Statistics';
+import LinkUFooter from './mainpage/LinkUFooter'
 
-export default class App extends Component {
-    render() {
-        return (
-            <div>
-                <Login />
-                <Jumbotron />
-                <MeetingCardBox />
-            </div>
-        );
-    }
-}
+const App = () => (
+    <div >
+        <ConfirmModal />
+        <LinkUHeader />
+        <IntroVideo />
+        <MeetingCardBox />
+        <IntroOfLinkU />
+        <NextMeetingPlan />
+        <Review />
+        <Statistics />
+        <LinkUFooter />
+    </div>
+);
+
+export default App;

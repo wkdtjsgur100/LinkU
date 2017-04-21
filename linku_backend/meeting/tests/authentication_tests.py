@@ -15,9 +15,8 @@ def test_create_user_model():
 
 
 @pytest.mark.django_db
-def test_return_400_status_when_user_requests_GET_method(client):
+def test_return_400_response_when_user_get_request(client):
     response = client.get('/users/')
-
     assert response.status_code == 400
 
 @pytest.mark.django_db

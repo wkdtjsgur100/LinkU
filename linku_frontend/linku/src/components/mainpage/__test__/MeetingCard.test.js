@@ -1,10 +1,19 @@
 import React from 'react';
+import { Grid } from 'semantic-ui-react';
+
 import { mount } from 'enzyme';
 import MeetingCard from '../MeetingCard';
 
 import configureStore from 'redux-mock-store';
 import { reducers } from '../../../reducers';
 import { Provider } from 'react-redux';
+
+if (!global.window.localStorage) {
+    global.window.localStorage = {
+        getItem() { return '{}'; },
+        setItem() {}
+    };
+}
 
 describe('<MeetingCard />', () => {
     const middlewares = []
@@ -20,9 +29,9 @@ describe('<MeetingCard />', () => {
     const meetingCardInfo = {
         food_img_path : "https://avatars1.githubusercontent.com/u/8240556?v=3&s=88",
         prof_img_path : "http://pngimg.com/upload_small/face/face_PNG5668.png",
-        title : "test title",
-        start_time : "test time",
-        place : "test place"
+        title : "",
+        start_time : "",
+        place : ""
     };
     const wrapper = mount(
         <Provider store = { store }>
@@ -40,11 +49,5 @@ describe('<MeetingCard />', () => {
         expect(wrapper.text()).toContain(meetingCardInfo.title);
         expect(wrapper.text()).toContain(meetingCardInfo.start_time);
         expect(wrapper.text()).toContain(meetingCardInfo.place);
-    });
-
-    it( 'occuer SHOW_LOGIN_ALERT action when user clicked this component', () => {
-        wrapper.find(MeetingCard).simulate('click');
-        const actions = store.getActions();
-        expect(actions).toEqual([{"type": "ALERT_LOGIN"}]);
     });
 });

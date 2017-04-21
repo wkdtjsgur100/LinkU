@@ -1,56 +1,55 @@
 import React, { Component } from 'react';
+import { Button, Header, Modal } from 'semantic-ui-react'
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import SimpleLogin from './SimpleLogin';
-import CloseButton from './CloseButton';
 import LoginForm from './LoginForm';
+import Signup from '../signup/Signup';
 
 import { loginRequest } from '../../actions/Login';
+import { hideLoginAlert } from '../../actions/Common';
 
-import SignUp from '../signup/SignUp';
 import axios from 'axios';
 
 class Login extends Component {
-    _handleSubmit = async (values) => {
-        if( values.password != values.pwd_chk )
-            console.log("password is not equal");
-        else {
-            const info = await Promise.all([axios.post('http://127.0.0.1:8000/users/',values)
-                .then(response => {
-                    console.log(response.data);
-                })
-                .catch(error => {
-                    console.log(error.response.data);
-                })
-            ]);
-        }
-    }
+    state = { modalOpen: false }
+
+    handleOpen = (e) => this.setState({
+        modalOpen: true,
+    })
+
+    handleClose = (e) => this.setState({
+        modalOpen: false,
+    })
 
     _handleLoginSubmit = (values) => {
-        this.props.loginRequest(values.email,values.password);
+        this.props.loginRequest(values.username,values.password);
     }
+
     render() {
-        let style = {
-            display: this.props.isVisible ? 'inline-block' : 'none'
-        }
         return (
-            <div style={style}>
-                <CloseButton />
-                <h>링쿠 로그인</h>
-                <LoginForm onSubmit = {this._handleLoginSubmit}/>
-                <SimpleLogin />
-                <SignUp onSubmit={this._handleSubmit}/>
-            </div>
+            <Modal trigger = {this.props.triggerButton} size='small'>
+                <Modal.Header>링쿠 로그인</Modal.Header>
+                <Modal.Content>
+                    <Modal.Description>
+                        <h>링쿠는 대학생만 이용할 수 있는 서비스입니다.</h>
+                        <LoginForm onSubmit = {this._handleLoginSubmit}/>
+                        <Signup />
+                    </Modal.Description>
+                </Modal.Content>
+             </Modal>
         );
     }
 }
 
-const mapStateToProps = (state) => {
+const mapDispatchToProps = (dispatch) => {
     return {
-        isVisible : state.loginAlert.isVisible
+        loginRequest : (id, password) => {
+            return dispatch(loginRequest(id,password));
+        },
     };
-}
+};
 
-export default connect(mapStateToProps,{loginRequest})(Login);
+export default connect(null, mapDispatchToProps)(Login);
